@@ -41,7 +41,8 @@ async def on_ready(): #event handler that handles the event when the Client has 
     
     channel = client.get_channel(380936459496062981) # This will load the channel ID I want to transmit in
 
-    await channel.send("Sup guys")
+    #await channel.send("Sup guys")
+    print("We are in!!!!!!!!!!!!!!!!!")
     cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True) #cron job that will run every 1730 CEST
 
 
@@ -65,8 +66,15 @@ async def q(ctx, *, question: str): #question needs str as a type, or else the c
 
 @client.command()
 async def shutdown(ctx):
-    person = ctx.author.id
-    await ctx.send(person)
+    role = discord.utils.get(ctx.guild.roles, name="God")
+    person = ctx.author.id #this gets your id
+  
+
+    if role in ctx.author.roles:
+        await ctx.send("I am going to shut down")
+        exit()
+    else:
+        await ctx.send("Sorry you do not have the rights :( ")
 
 #When invoke, it will ping the group for the warzone notification 
 async def checkWarzoneTime():
