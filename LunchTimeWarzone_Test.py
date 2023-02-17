@@ -45,7 +45,6 @@ async def on_ready(): #event handler that handles the event when the Client has 
     cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True) #cron job that will run every 1730 CEST
 
 
-channel = client.get_channel(757910247120568415) 
 @client.command
 async def shutdown():
     exit()
