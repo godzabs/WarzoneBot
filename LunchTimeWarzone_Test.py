@@ -12,6 +12,12 @@ import aiocron
 import requests
 from dotenv import load_dotenv
 import openai
+from selenium import webdriver
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
 load_dotenv()
 
 DISCORD_API_KEY = os.getenv('DISCORDAPI_KEY')
@@ -74,7 +80,16 @@ async def shutdown(ctx):
         await ctx.send("I am going to shut down")
         exit()
     else:
-        await ctx.send("Sorry you do not have the rights :( ")
+        #await ctx.send("Sorry you do not have the rights :( ")
+        driver = webdriver.Edge()
+        driver.minimize_window()
+        driver.get('http://generatorland.com/glgenerator.aspx?id=86')
+        driver.implicitly_wait(180)
+        driver.find_element(By.XPATH,"//a/img[@alt='Confucius']").click()
+
+        msg = driver.find_element(By.XPATH,"//div[@class='confucius']")
+        msg_content = msg.get_attribute('innerHTML')
+        await ctx.send(msg_content.strip())
 
 #When invoke, it will ping the group for the warzone notification 
 async def checkWarzoneTime():
