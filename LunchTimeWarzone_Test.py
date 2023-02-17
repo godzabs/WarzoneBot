@@ -62,7 +62,12 @@ async def q(ctx, *, question: str): #question needs str as a type, or else the c
     response = completion.choices[0].text
     await ctx.send(response)
 
-  
+
+@client.command()
+async def shutdown(ctx):
+    person = ctx.author.id
+    await ctx.send(person)
+
 #When invoke, it will ping the group for the warzone notification 
 async def checkWarzoneTime():
 
