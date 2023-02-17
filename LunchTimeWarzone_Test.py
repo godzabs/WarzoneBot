@@ -42,7 +42,7 @@ async def on_ready(): #event handler that handles the event when the Client has 
     channel = client.get_channel(380936459496062981) # This will load the channel ID I want to transmit in
 
     await channel.send("Sup guys")
-    cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True)
+    cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True) #cron job that will run every 1730 CEST
 
 
 channel = client.get_channel(757910247120568415) 
