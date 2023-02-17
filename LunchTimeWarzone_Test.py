@@ -45,9 +45,6 @@ async def on_ready(): #event handler that handles the event when the Client has 
     cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True) #cron job that will run every 1730 CEST
 
 
-@client.command
-async def shutdown():
-    exit()
 #When invoked, it will invoke the ChatGPT API to answer a question 
 @client.command()
 async def q(ctx, *, question: str): #question needs str as a type, or else the code fails
