@@ -42,12 +42,8 @@ async def on_ready(): #event handler that handles the event when the Client has 
     #on_ready() gets called once client is ready for further action
     print('We have logged in as {0.user}'.format(client))
 
-    g = discord.utils.get(client.guilds, name = GUILD) #this tells it to join a guild we specified, in our case its good shit, this will be changed to the discord server
-
-    
     channel = client.get_channel(380936459496062981) # This will load the channel ID I want to transmit in
-
-    #await channel.send("Sup guys")
+    await channel.send("Sup guys")
     print("We are in!!!!!!!!!!!!!!!!!")
     cron_min = aiocron.crontab('30 17 * * 1-5', func=checkWarzoneTime, args='', start=True) #cron job that will run every 1730 CEST
 
@@ -72,7 +68,7 @@ async def q(ctx, *, question: str): #question needs str as a type, or else the c
 
 @client.command()
 async def shutdown(ctx):
-    role = discord.utils.get(ctx.guild.roles, name="God")
+    role = discord.utils.get(ctx.guild.roles, name="God") #id of the admins
     person = ctx.author.id #this gets your id
   
 
@@ -80,7 +76,9 @@ async def shutdown(ctx):
         await ctx.send("I am going to shut down")
         exit()
     else:
-        #await ctx.send("Sorry you do not have the rights :( ")
+        #sends a Confucius saying from a webpage made in 2002
+        #scrapes the webpage using edge, clicks the javascript button
+        #and returns the output
         driver = webdriver.Edge()
         driver.minimize_window()
         driver.get('http://generatorland.com/glgenerator.aspx?id=86')
@@ -93,14 +91,11 @@ async def shutdown(ctx):
 
 #When invoke, it will ping the group for the warzone notification 
 async def checkWarzoneTime():
-
-    print("Called from checkWarzoneTime() \n")
-
     channel = client.get_channel(380936459496062981)
     g = discord.utils.get(client.guilds, name = GUILD) 
     roleMention = discord.utils.get(g.roles, id = 929444477515497513)
+    #sends the poll for lunchtime warzone
     poll = await channel.send(f"{roleMention.mention}Are you going to be there for lunchtime warzone? ")
-    #await channel.send("Is it time\n")
     await poll.add_reaction("✅")
     await poll.add_reaction("❌")
          
@@ -120,6 +115,7 @@ async def i(ctx, *, question: str): #question needs str as a type, or else the c
     f.write(requests.get(image_url).content)
     f.close()
     await ctx.send(file=discord.File(full_path))
+    os.remove(full_path) # remove the generated file. This is the best way not to bloat the PC while temporarly sending pics to the discord chat
 
 client.run(DISCORD_API_KEY)
 
