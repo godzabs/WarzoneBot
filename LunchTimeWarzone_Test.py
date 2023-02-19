@@ -26,8 +26,6 @@ OPENAI_API_KEY = os.getenv('OPENAPI_KEY')
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='!', intents=intents)
 
-
-GUILD = "Merry Band of Minorities" # server name3
 ##############
 
 openai.api_key = OPENAI_API_KEY
