@@ -116,6 +116,19 @@ async def i(ctx, *, question: str): #question needs str as a type, or else the c
     await ctx.send(file=discord.File(full_path))
     os.remove(full_path) # remove the generated file. This is the best way not to bloat the PC while temporarly sending pics to the discord chat
 
+#added the confucius quote command so admins could call it without it shutting down
+@client.command()
+async def quote(ctx):
+    driver = webdriver.Edge()
+    driver.minimize_window()
+    driver.get('http://generatorland.com/glgenerator.aspx?id=86')
+    driver.implicitly_wait(180)
+    driver.find_element(By.XPATH,"//a/img[@alt='Confucius']").click()
+
+    msg = driver.find_element(By.XPATH,"//div[@class='confucius']")
+    msg_content = msg.get_attribute('innerHTML')
+    await ctx.send(msg_content.strip())
+
 client.run(DISCORD_API_KEY)
 
 
