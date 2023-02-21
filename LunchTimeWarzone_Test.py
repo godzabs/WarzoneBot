@@ -33,6 +33,7 @@ model_engine = "text-davinci-003"
 
 ######################
 
+cancelNextDay = False #used in a function call below, made it global so other functions could read it
 
 
 @client.event
@@ -93,10 +94,14 @@ async def checkWarzoneTime():
     channel = client.get_channel(380936459496062981)
     g = discord.utils.get(client.guilds, name = GUILD) 
     roleMention = discord.utils.get(g.roles, id = 929444477515497513)
-    #sends the poll for lunchtime warzone
-    poll = await channel.send(f"{roleMention.mention}Are you going to be there for lunchtime warzone? ")
-    await poll.add_reaction("✅")
-    await poll.add_reaction("❌")
+    if cancelNextDay == True:
+        await channel.send("No warzone today :( ")
+        cancelNextDay = True
+    else:
+        #sends the poll for lunchtime warzone
+        poll = await channel.send(f"{roleMention.mention}Are you going to be there for lunchtime warzone? ")
+        await poll.add_reaction("✅")
+        await poll.add_reaction("❌")
          
       
 
@@ -128,6 +133,12 @@ async def quote(ctx):
     msg = driver.find_element(By.XPATH,"//div[@class='confucius']")
     msg_content = msg.get_attribute('innerHTML')
     await ctx.send(msg_content.strip())
+
+
+@client.command()
+async def cancel(ctx):
+    cancelNextDay = True
+    await ctx.send("I canceled the warzone notification for the next day :sob: ")
 
 client.run(DISCORD_API_KEY)
 
