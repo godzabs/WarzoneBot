@@ -96,7 +96,7 @@ async def checkWarzoneTime():
     roleMention = discord.utils.get(g.roles, id = 929444477515497513)
     if cancelNextDay == True:
         await channel.send("No warzone today :( ")
-        cancelNextDay = True
+        cancelNextDay = False
     else:
         #sends the poll for lunchtime warzone
         poll = await channel.send(f"{roleMention.mention}Are you going to be there for lunchtime warzone? ")
