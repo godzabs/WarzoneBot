@@ -90,6 +90,7 @@ async def shutdown(ctx):
 
 #When invoke, it will ping the group for the warzone notification 
 async def checkWarzoneTime():
+    global cancelNextDay
     GUILD = "Merry Band of Minorities" # server name3
     channel = client.get_channel(380936459496062981)
     g = discord.utils.get(client.guilds, name = GUILD) 
